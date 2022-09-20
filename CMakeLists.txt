@@ -3,5 +3,5 @@ project(CPP_labs)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(lab1 CPP_labs
-        lab_1/main.cpp)
+add_executable(lab1 lab_1/lab_1.cpp)
+add_executable(lab3 lab_3/lab_3.cpp)

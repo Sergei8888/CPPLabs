@@ -1,5 +1,5 @@
 //
-// Created by Sergei Kuzmenkov on 20.09.2022.
+// Created by Sergei Kuzmenkov on 23.09.2022.
 //
 
 /*
@@ -22,32 +22,42 @@ int main() {
     int n;
     std::cin >> n;
 
-    int a[n];
-    for (int i = 0; i < n; i++) {
-        std::cout << "Введите число в последовательности: ";
-        std::cin >> a[i];
-    }
-
     int product = 1;
-    int min = a[0];
+    int min;
     int minIndex = 0;
+    bool validFlag = false;
 
-    for (int i = 0; i < (sizeof a / sizeof(*a)); i++){
-        bool insideRange = (a[i] >= -2) && (a[i] <= 20);
+    for (int i = 0; i < n; i++) {
+        int currentNumber;
+        std::cout << "Введите число в последовательности: ";
+        std::cin >> currentNumber;
+
+        bool insideRange = (currentNumber >= -2) && (currentNumber <= 20);
         if (!insideRange) {
             continue;
         }
 
-        product *= a[i];
+        validFlag = true;
 
-        if (min <= a[i]) {
+        if (i == 0) {
+            min = currentNumber;
+        }
+
+        product *= currentNumber;
+
+        if (min <= currentNumber) {
             continue;
         }
 
-        min = a[i];
-        minIndex = i;
+        min = currentNumber;
+        minIndex = i + 1;
     }
 
-    printAnswer(product, min, minIndex + 1);
+    if (!validFlag){
+        std::cout << "Нет чисел в диапазоне" << std::endl;
+    } else {
+        printAnswer(product, min, minIndex + 1);
+    }
+
     return 0;
 }

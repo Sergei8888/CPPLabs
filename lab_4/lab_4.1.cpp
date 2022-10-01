@@ -3,7 +3,6 @@
 //
 
 #include <iostream>
-#include <algorithm>
 
 /*
  * Дана последовательность натуральных чисел {aj}j=1...n (n<=10000).

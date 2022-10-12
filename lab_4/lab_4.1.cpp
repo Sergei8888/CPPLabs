@@ -22,17 +22,6 @@ void printArray(int series[], int length) {
     std::cout << "]\n";
 }
 
-int getNumeralsSum(int number) {
-    int numeralsSum = 0;
-    while (number > 0) {
-        numeralsSum += number % 10;
-        number /= 10;
-    }
-    std::cout << "Сумма цифр: " << numeralsSum << std::endl;
-
-    return numeralsSum;
-}
-
 int main() {
     std::cout << "Введите длинну последовательности: ";
     int n;
@@ -46,7 +35,14 @@ int main() {
         std::cin >> currentNumber;
         series[i] = currentNumber;
 
-        if (getNumeralsSum(currentNumber) == 14) {
+        int numeralsSum = 0;
+        while (currentNumber > 0) {
+            numeralsSum += currentNumber % 10;
+            currentNumber /= 10;
+        }
+        std::cout << "Сумма цифр: " << numeralsSum << std::endl;
+
+        if (numeralsSum == 14) {
             numeralsSumEqualsFlag = true;
         }
     }
@@ -57,7 +53,17 @@ int main() {
     }
 
     std::cout << "Сортированная последовательность: ";
-    std::sort(series,series + n);
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (series[j] > series[j + 1]) {
+                int temp = series[j];
+                series[j] = series[j + 1];
+                series[j + 1] = temp;
+            }
+        }
+    }
+
     printArray(series, n);
     return 0;
 }

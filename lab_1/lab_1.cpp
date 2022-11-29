@@ -5,12 +5,12 @@
 #include <iostream>
 
 int main() {
-    short first_side;
+    int first_side;
 
     std::cout << "Введите первую сторону прямоугольника:\n";
     std::cin >> first_side;
 
-    short second_side;
+    int second_side;
 
     std::cout << "Введите вторую сторону прямоугольника:\n";
     std::cin >> second_side;

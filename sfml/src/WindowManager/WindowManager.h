@@ -1,7 +1,7 @@
 //
 // Created by Sergei Kuzmenkov on 27.11.2022.
 //
-#include <SFML/Graphics.hpp>
+#include "SFML/Graphics.hpp"
 
 #ifndef HARDEND_WINDOWMANAGER_H
 #define HARDEND_WINDOWMANAGER_H
@@ -17,7 +17,7 @@ private:
 public:
     sf::RenderWindow *window;
 
-    sf::Vector2<float> getCenter() {
+    sf::Vector2<float> getCenter() const {
         return sf::Vector2<float>(window->getSize().x, window->getSize().y) / 2.f;
     }
 

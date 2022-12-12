@@ -6,12 +6,26 @@
 #include "WindowManager/WindowManager.h"
 #include "GameLoop/GameLoop.h"
 
-int main() {
-    auto windowManager = new WindowManager;
+void runGameLoopThr(std::atomic_bool &isRunning, GameLoop *gameLoop) {
+    gameLoop->main(isRunning);
+}
 
-    std::thread gameLoopTread(&GameLoop::main, GameLoop(windowManager));
+int main() {
+    std::atomic_bool isRunning;
+    isRunning = true;
+
+    auto windowManager = new WindowManager;
+    auto gameLoop = new GameLoop(windowManager);
+
+    std::thread gameLoopTread(runGameLoopThr, std::ref(isRunning), gameLoop);
 
     while (windowManager->window->isOpen()) {
         windowManager->handleWindowEvents();
     }
+
+    // Terminating after window is closed
+    isRunning = false;
+    delete windowManager;
+    delete gameLoop;
+    gameLoopTread.join();
 }

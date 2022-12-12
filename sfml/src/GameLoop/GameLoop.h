@@ -18,16 +18,19 @@ private:
 public:
     std::vector<Figure *> *scene = new std::vector<Figure *>;
 
-    noreturn void main() {
-        while (true) {
+    void main(std::atomic_bool &isRunning) {
+        while (isRunning) {
             this->runIteration();
             std::this_thread::sleep_for(std::chrono::milliseconds(10));
         }
     }
 
     void fillScene() const {
-        auto circle = new Figure(ScieneManager::createCircle());
+        auto circle = ScieneManager::createCircleFigure();
+        auto rectangle = ScieneManager::createRectangleFigure();
+
         scene->push_back(circle);
+        scene->push_back(rectangle);
     }
 
     void runIteration() {
@@ -35,27 +38,24 @@ public:
 
         for (auto *ball: *scene) {
             ball->updatePosition();
-        }
-
-        fixCollisions();
-
-        for (auto *ball: *scene) {
+            ball->fixScreenCollision(windowManager->window->getSize());
             windowManager->window->draw(*ball->shape);
         }
 
         windowManager->window->display();
     }
 
-
-    void fixCollisions() {
-        for (auto *ball: *scene) {
-            ball->fixScreenCollision(windowManager->window->getSize());
-        }
-    }
-
     explicit GameLoop(WindowManager *windowManager) {
         this->windowManager = windowManager;
         fillScene();
+    }
+
+    ~GameLoop() {
+        for (auto *ball: *scene) {
+            delete ball;
+        }
+
+        delete scene;
     }
 };
 

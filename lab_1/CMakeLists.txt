@@ -1,0 +1,1 @@
+add_executable(lab_1.cpp lab_1.cpp)

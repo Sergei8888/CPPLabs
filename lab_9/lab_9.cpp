@@ -8,7 +8,6 @@ private:
     double b;
     double c;
 public:
-
     Triangle(double a, double b, double c) {
         this->a = a;
         this->b = b;
@@ -25,6 +24,10 @@ public:
         std::cout << "Triangle: " << a << ", " << b << ", " << c << std::endl;
         std::cout << "Area: " << getArea() << std::endl;
     };
+
+    ~Triangle() {
+        
+    }
 };
 
 class TriangleFactory {

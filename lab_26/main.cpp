@@ -14,35 +14,36 @@ protected:
 
 class RightAngleTriangle : Figure {
 private:
-    std::vector<float> a_coords;
-    std::vector<float> b_coords;
-    std::vector<float> c_coords;
+    float a[2];
+    float b[2];
+    float c[2];
 
 public:
     RightAngleTriangle(std::string color, std::vector<float> a_coords, std::vector<float> b_coords,
                        std::vector<float> c_coords) {
         this->color = std::move(color);
-        this->a_coords = std::move(a_coords);
-        this->b_coords = std::move(b_coords);
-        this->c_coords = std::move(c_coords);
+        this->a[0] = a_coords[0];
+        this->a[1] = a_coords[1];
+        this->b[0] = b_coords[0];
+        this->b[1] = b_coords[1];
+        this->c[0] = c_coords[0];
+        this->c[1] = c_coords[1];
     }
 
     float area() override {
-        float a = sqrt(pow(a_coords[0] - b_coords[0], 2) + pow(a_coords[1] - b_coords[1], 2));
-        float b = sqrt(pow(b_coords[0] - c_coords[0], 2) + pow(b_coords[1] - c_coords[1], 2));
-        float c = sqrt(pow(c_coords[0] - a_coords[0], 2) + pow(c_coords[1] - a_coords[1], 2));
+        float ab = sqrt(pow(a[0] - b[0], 2) + pow(a[1] - b[1], 2));
+        float bc = sqrt(pow(b[0] - c[0], 2) + pow(b[1] - c[1], 2));
+        float ac = sqrt(pow(a[0] - c[0], 2) + pow(a[1] - c[1], 2));
 
-        float p = (a + b + c) / 2;
-
-        return sqrt(p * (p - a) * (p - b) * (p - c));
+        return (ab + bc + ac) / std::max(ab, std::max(bc, ac));
     }
 
     void printFigureInfo() override {
         std::cout << "Right angle triangle" << std::endl;
         std::cout << "Color: " << color << std::endl;
-        std::cout << "A: " << a_coords[0] << " " << a_coords[1] << std::endl;
-        std::cout << "B: " << b_coords[0] << " " << b_coords[1] << std::endl;
-        std::cout << "C: " << c_coords[0] << " " << c_coords[1] << std::endl;
+        std::cout << "A: " << a[0] << " " << a[1] << std::endl;
+        std::cout << "B: " << b[0] << " " << b[1] << std::endl;
+        std::cout << "C: " << c[0] << " " << c[1] << std::endl;
         std::cout << "Area: " << area() << std::endl;
     };
 };

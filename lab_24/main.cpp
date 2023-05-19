@@ -7,6 +7,10 @@ private:
     bool boolVector[baseVectorSize]{};
 public:
     explicit MyVectorBool(int n) {
+        if (n < 0) {
+            std::throw_with_nested(new std::invalid_argument("N can not be below zero"));
+        }
+
         // n to binary and save it to the end of boolVector and reverse
         int i = baseVectorSize - 1;
         while (n > 0) {
@@ -114,6 +118,7 @@ public:
         std::throw_with_nested(new std::invalid_argument("Index out of range"));
     }
 
+    
 };
 
 int main() {
